@@ -1,0 +1,13 @@
+package com.apiservi.siseduBackend;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SiseduBackendApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SiseduBackendApplication.class, args);
+	}
+
+}
