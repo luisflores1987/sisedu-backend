@@ -42,8 +42,8 @@ public class Persona {
     @ManyToOne
     private Profesion nIdProfesion;
 
-    @OneToMany(mappedBy = "nIdPersona", cascade = CascadeType.ALL)
-    private List<Usuario> usuarios;
+    @OneToOne(mappedBy = "nIdPersona")
+    private Usuario usuario;
 
     @Column(name = "dFechaNac")
     private Date dFechaNac;
@@ -87,6 +87,24 @@ public class Persona {
         this.sApellidoPaterno = sApellidoPaterno;
         this.sApellidoMaterno = sApellidoMaterno;
         this.sNombres = sNombres;
+    }
+
+    public Persona(String nSexo, String sApellidoPaterno, String sApellidoMaterno, String sNombres, String sNombreCompleto, String sNumeroDocumento,
+                   Integer nIdEstadoCivil, Integer nIdGradoInstruccion, Date dFechaNac, String sTelefono, String sCorreoPersonal, String sEstado,
+                   String sUsuarioCreador) { /*ingreso de data necesaria*/
+        this.nSexo = nSexo;
+        this.sApellidoPaterno = sApellidoPaterno;
+        this.sApellidoMaterno = sApellidoMaterno;
+        this.sNombres = sNombres;
+        this.sNombreCompleto = sNombreCompleto;
+        this.sNumeroDocumento = sNumeroDocumento;
+        this.nIdEstadoCivil = nIdEstadoCivil;
+        this.nIdGradoInstruccion = nIdGradoInstruccion;
+        this.dFechaNac = dFechaNac;
+        this.sTelefono = sTelefono;
+        this.sCorreoPersonal = sCorreoPersonal;
+        this.sEstado = sEstado;
+        this.sUsuarioCreador = sUsuarioCreador;
     }
 
     public Timestamp getDFechaEliminado() {
@@ -265,11 +283,11 @@ public class Persona {
         this.nIdPersona = nIdPersona;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

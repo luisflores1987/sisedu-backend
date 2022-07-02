@@ -3,7 +3,10 @@ package com.apiservi.siseduBackend.security.entity;
 import com.apiservi.siseduBackend.entity.Persona;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "usuario")
 @Entity
@@ -13,8 +16,14 @@ public class Usuario {
     @Column(name = "nIdUsuario", nullable = false)
     private Integer id;
 
-    @ManyToOne
+    @JoinColumn(name="nIdPersona", referencedColumnName = "nIdPersona", insertable = false, updatable = false)
+    @OneToOne(optional = false)
     private Persona nIdPersona;
+
+    @NotNull
+    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name="usuario_id"), inverseJoinColumns = @JoinColumn(name="rol_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Rol> roles = new HashSet<>();
 
     @Column(name = "sUsername", nullable = false, length = 100)
     private String sUsername;
@@ -63,6 +72,16 @@ public class Usuario {
 
     @Column(name = "sAplicativo", length = 100)
     private String sAplicativo;
+
+    public Usuario() {
+    }
+
+    public Usuario(@NotNull Persona nIdPersona, @NotNull String sUsername, @NotNull String sPassword, @NotNull String sCorreo) {
+        this.nIdPersona = nIdPersona;
+        this.sUsername = sUsername;
+        this.sPassword = sPassword;
+        this.sCorreo = sCorreo;
+    }
 
     public String getSAplicativo() {
         return sAplicativo;
@@ -206,5 +225,13 @@ public class Usuario {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
     }
 }
